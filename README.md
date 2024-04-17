@@ -1,2 +1,1 @@
-# READMI
-GRUPO 1
+Datos y redes
