@@ -2,7 +2,7 @@
 
 **Acceso a la consola de administración de AWS**
 
-![](Aspose.Words.842530a6-6b73-4834-bfeb-1cee7bc60cb9.001.png)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.842530a6-6b73-4834-bfeb-1cee7bc60cb9.001.png)
 
 Para comenzar la sesión de laboratorio, selecciona **Start Lab** (Iniciar laboratorio) en la esquina superior derecha de la página
 
