@@ -8,13 +8,13 @@ Selecciona el menú Servicios, localiza los servicios de Almacenamiento y selecc
 
 En **Nombre del bucket**, introduce un nombre exclusivo compatible con el sistema de nombres de dominio (DNS) para el nuevo bucket.
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.001.jpeg)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.001.jpeg)
 
 Quita la marca de la casilla Bloquear *todo* el acceso público porque quieres verificar si el sitio web funciona. 
 
 Debajo de la configuración de seguridad de la que quitaste la marca de selección, se muestra un mensaje de advertencia que dirá algo como Al desactivar el bloqueo de todo el acceso público, este bucket y los objetos se conviertan en públicos.
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.002.jpeg)Elige el enlace para el nombre del bucket y, a continuación, selecciona la pestaña **Permisos**. 
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.002.jpeg)Elige el enlace para el nombre del bucket y, a continuación, selecciona la pestaña **Permisos**. 
 
 En la sección **Política de bucket**, selecciona **Editar**. 
 
@@ -22,7 +22,7 @@ Para conceder acceso de lectura pública a tu sitio web, copia la siguiente pol�
 
 En la política, reemplaza **example-bucket** por el nombre del bucket. Selecciona **Guardar cambios**. 
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.003.png)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.003.png)
 
 **Subir un documento HTML** 
 
@@ -34,7 +34,7 @@ Guarda el archivo index.html en el equipo local. En la consola, selecciona la pe
 
 `    `Selecciona **Cargar**. 
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.004.jpeg)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.004.jpeg)
 
 **Probar el sitio web** 
 
@@ -48,12 +48,12 @@ En el cuadro de texto **Documento de índice**, introduce index.html. Selecciona
 
 Desplázate de nuevo hacia abajo hasta la sección **Alojamiento de sitios web estáticos** y copia la URL del **Punto de enlace de sitio web del bucket** en el portapapeles. 
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.005.jpeg)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.005.jpeg)
 
 Abre una nueva pestaña en el navegador web, pega la URL que acabas de copiar y pulsa **Intro**. 
 
 Debería abrirse la página web **Hello World**. Has alojado correctamente un sitio web estático mediante un bucket de S3.
 
-![](Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.006.png)
+![](https://github.com/JohnJairoR/READMI/blob/main/Laboratorios_AWS/imagenes/Aspose.Words.fd0944bd-69fd-4711-8150-41cc3bfcc5e9.006.png)
 
 **Laboratorio completado** 
