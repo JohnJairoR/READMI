@@ -18,8 +18,7 @@ Selecciona la pestaña **Permisos**. En **Bloquear acceso público (configuraci�
 
 Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guarda** 
 
-![]((https://github.com/JohnJairoR/READMI/assets/152223886/a5b5dd3c-dba9-4ef1-a506-283196755c39)
-)
+[](https://github.com/JohnJairoR/READMI/assets/152223886/a5b5dd3c-dba9-4ef1-a506-283196755c39)
 
 **Tarea 2. Añadir una política de bucket** 
 
