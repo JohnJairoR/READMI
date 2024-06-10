@@ -1,106 +1,143 @@
-﻿**Laboratorio del módulo 5: Uso de CloudFront como CDN para un** 
+**Asociar un volumen de EBS**
 
-**sitio web** 
+Tarea 1. Comenzar a crear la instancia y asignarle un nombre
+Selecciona el menú Servicios, localiza los servicios de Computación y selecciona EC2.
 
-**Tarea 1. Crear un bucket de S3 mediante AWS CLI** 
+Selecciona el botón Lanzar instancia en medio de la página y luego selecciona Lanzar instancia en el menú desplegable
+area 2. Imágenes de aplicación y SO
+Selecciona una AMI a partir de la cual crear la instancia:
 
-En esta tarea, crearás un bucket de S3 mediante la Interfaz de la línea de comandos de AWS (AWS CLI). AWS CLI es una herramienta de código abierto que puedes utilizar para interactuar con los servicios de AWS mediante comandos en tu shell de línea de comandos. 
+En la lista de AMI disponibles de Quick Start, mantén la AMI predeterminada de Amazon Linux seleccionada.
 
-Elige **Servicios** y **Herramientas para desarrolladores** y, después, **CloudShell**. Si aparece una ventana emergente de bienvenida, selecciona **Cerrar**. 
+Además, mantén seleccionada la Amazon Linux 2023 AMI x86_64 (HVM) predeterminada.
 
-AWS CloudShell es un shell basado en navegador que da acceso a la línea de comandos para los recursos de AWS en la región de AWS seleccionada.
+El tipo de imagen de máquina de Amazon (AMI) que selecciones determina el sistema operativo (SO) que se ejecutará en la instancia de EC2 que inicies. En este caso, has seleccionado Amazon Linux 2023 como SO invitado.
 
-Copia y pega el siguiente código en un editor de texto:
+ 
 
-**cd ~** 
+Tarea 3. Elegir el tipo de instancia
+Especifica un tipo de instancia:
 
-**aws s3api create-bucket --bucket (bucket-name) --region us-east-1** 
+En el panel Tipo de instancia, mantén el tipo predeterminado t2.micro seleccionado.
 
-Selecciona la pestaña **Permisos**. En **Bloquear acceso público (configuración del bucket)**, selecciona **Editar**. Desactiva la casilla de **Bloquear todo el acceso público**. Elige **Guardar cambios**. Confirma los cambios. 
+El Tipo de instancia define los recursos de hardware asignados a la instancia. Este tipo de instancia tiene 1 unidad de procesamiento central virtual (CPU) y 1 GiB de memoria.
 
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guarda** 
+ 
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.001.jpeg)
+Tarea 4. Seleccionar un par de claves
+Selecciona el par de claves que quieras asociar con la instancia:
 
-**Tarea 2. Añadir una política de bucket** 
+En el menú Nombre del par de claves, selecciona vockey.
+El par de claves vockey que has seleccionado te permitirá conectarte a esta instancia mediante SSH después de que se haya iniciado. Aunque no tendrás que hacer eso en este laboratorio, sigue siendo necesario para identificar un par de claves existente, crear uno nuevo o al lanzar una instancia.
 
-En esta tarea, añadirás una política de bucket a través de AWS CLI para que el contenido esté disponible públicamente.
+ 
 
-En la consola, selecciona el menú **Servicios**, localiza la sección **Almacenamiento** y elige **S3**. 
+Tarea 5. Configuración de red
+Junto a la configuración de red, selecciona Editar.
 
-Elige el nombre del bucket que acabas de crear.
+ 
 
-Selecciona la pestaña **Permisos**. En **Bloquear acceso público (configuración del bucket)**, selecciona **Editar**. Desactiva la casilla de **Bloquear todo el acceso público**. Elige **Guardar cambios**. Confirma los cambios. 
+Mantén los ajustes predeterminados para VPC y subred. Mantén también el ajuste de Asignar automáticamente la IP pública como Habilitar.
+La red indica la nube virtual privada (VPC) en la que quieres lanzar la instancia. Puede tener varias redes; por ejemplo, una para desarrollo, una segunda para pruebas y una tercera para producción.
 
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guardar cambios**. 
+En Firewall (grupos de seguridad), selecciona el valor predeterminado La opción  Crear grupo de seguridad está seleccionada.
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.002.jpeg)
+ 
 
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guardar cambios**. 
+Configura un nuevo grupo de seguridad:
 
-En la sección **Política del bucket**, selecciona **Editar**. 
+Mantén la selección predeterminada Crear un nuevo grupo de seguridad.
 
-Para conceder acceso de lectura pública a tu sitio web, copia y pega la siguiente política del bucket en el editor de políticas.
+Nombre del grupo de seguridad: borra el texto e introduce Web Server
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.003.jpeg)
+Tarea 6. Configurar el almacenamiento
+En la sección Configurar almacenamiento, mantén la configuración predeterminada
 
-**Tarea 3. Subir un documento HTML** 
+Tarea 7: Detalles avanzados
+Configura un script para que se ejecute en la instancia cuando se inicie:
 
-En esta tarea, subirás el archivo index.html de tu página web en el bucket de S3.
+Expande el panel Detalles avanzados.
 
-Abre el menú contextual (haz clic con el botón derecho) del siguiente enlace y, a continuación, elige **Save link as** (Guardar enlace como): ind[ex.html ](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-ACCAIC-1-91563/03-lab-5-cloudfront/s3/index.html)
+Desplázate hacia la parte inferior de la página y copia y pega el código que se muestra a continuación en la casilla Datos de usuario:
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.004.jpeg)
+#!/bin/bash
+yum update -y
+yum -y install httpd
+systemctl enable httpd
+systemctl start httpd
+echo '<html><h1>Hello World!</h1></html>' > /var/www/html/index.html
 
-**Tarea 4. Probar el sitio web** 
+ Revisar la instancia y lanzarla
+En la parte inferior del panel Resumen en la parte derecha de la pantalla, selecciona Lanzar instancia
 
-Selecciona la pestaña **Propiedades** y desplázate a la sección **Alojamiento de sitios web estáticos**. 
+Verás un mensaje de éxito.
 
-Selecciona **Editar**. 
+ 
 
-Selecciona **Habilitar**. 
+Selecciona Ver todas las instancias
 
-En el cuadro de texto **Documento de índice**, introduce "index.html" 
+La instancia aparecerá primero en estado Pendiente, que significa que se está lanzando.
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.005.png)
 
-**Tarea 5. Crear una distribución de CloudFront para servir al sitio web** 
 
-En esta tarea, crearás una distribución de Amazon CloudFront para servir al sitio web.
+Acceder a la instancia de EC2
+Cuando lanzaste la instancia de EC2, proporcionaste un script que instaló un servidor web y creó una página web sencilla. En esta tarea, intentarás acceder al contenido desde el servidor web.
 
-Selecciona el menú **Servicios**, localiza la sección **Redes y entrega de contenido** y selecciona **CloudFront**. 
+ 
 
-Selecciona **Crear una distribución de CloudFront** 
+En la pestaña Detalles, copia el valor de la Dirección IPv4 pública de la instancia en el portapapeles.
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.006.jpeg)
+Tarea 10. Actualizar el grupo de seguridad
+No puedes acceder al servidor web porque el grupo de seguridad no permite el tráfico entrante en el puerto 80, que se utiliza para las solicitudes web HTTP. En esta tarea, actualizarás el grupo de seguridad.
 
-Para **Viewer Protocol Policy** (Política de protocolo de visor), asegúrate de que **HTTP y HTTPS** estén seleccionados. En **Web Application Firewall (WAF)**, selecciona **Do not enable security protections** (No habilitar protecciones de seguridad).
+ 
 
-Desplázate hasta la parte inferior de la página y selecciona **Crear distribución**. 
+Vuelve a la pestaña del navegador de la Consola de administración de EC2.
+En el panel de navegación izquierdo, en Red y seguridad, selecciona Grupos de seguridad.
+Selecciona el grupo de seguridad Web Server que creaste al lanzar la instancia de EC2.
+En el panel inferior, selecciona la pestaña Reglas de entrada.
+Tarea 11: Crear una regla de entrada
+Selecciona Editar reglas de entrada y, a continuación, selecciona Añadir regla.
+Configura lo siguiente:
 
-Se muestra una nueva distribución de CloudFront en la lista de distribuciones. 
+Tipo: HTTP
+Fuente: Cualquier lugar-IPv4
+Selecciona Guardar reglas
+La nueva regla HTTP de entrada crea una entrada para las direcciones IP IPv4 IP (0.0.0.0/0) y IPv6 (::/0).
 
-El **Estado** será *Implementando* hasta que el sitio web se haya distribuido. Puede tardar hasta 20 minutos. 
+ 
 
-Cuando el **Estado** sea *Habilitado*, puedes probar la distribución.
+Tarea 12. Probar la regla
+Vuelve a la pestaña que utilizaste para intentar conectarte al servidor web.
+Actualiza la página.
 
-Copia el valor de **Nombre de dominio** de la distribución y guárdalo en un editor de texto para utilizarlo en un paso posterior
+Debería mostrar la página del servidor web con el mensaje Hello World!
+Tarea 13: Adjuntar un volumen de EBS a la instancia de EC2
+Vuelve a la pestaña del navegador de la Consola de administración de EC2.
+En el panel de navegación izquierdo, en Instancias, selecciona Instancias
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.007.jpeg)
+Selecciona la instancia Web Server y, en la pestaña Redes que aparece debajo, toma nota de la Zona de disponibilidad en la que se ejecuta la instancia.
 
-- Reemplaza **domain-name** por el nombre de dominio que copiaste antes para la distribución de CloudFront. 
-- Reemplaza **object-name** por el nombre del archivo de imagen que cargaste en el bucket de S3. 
+El volumen de EBS que vas a crear pronto tendrá que estar en la misma zona de disponibilidad.
 
-  La línea de código editada debe tener un aspecto similar al siguiente: <p><img  
+En el panel de navegación izquierdo, en Elastic Block Store, selecciona Volúmenes.
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.008.png)
+Selecciona Crear volumen.
 
-Guarda el archivo de texto con extensión HTML. 
+En Tamaño, introduce 1 para crear un volumen con 1 GiB.
 
-Utiliza un navegador de Internet para abrir el archivo HTML que acabas de crear.
+En Zona de disponibilidad, selecciona la misma zona de disponibilidad en la que se ejecuta la instancia de EC2.
 
-Si se muestra la imagen que cargaste, la distribución de CloudFront se realizó correctamente. Si no es así, repite el laboratorio.
+ 
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.009.jpeg)
+Desplázate hacia abajo y selecciona Crear volumen
 
-**Laboratorio completado![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.010.png)**
+El nuevo volumen aparece en la lista de volúmenes con el estado disponible.
+Selecciona el nuevo volumen con un tamaño de 1 GiB. A continuación, elige Acciones y Asociar volumen.
+Selecciona el menú desplegable Instancia y selecciona tu instancia de EC2. La lista de instancias se rellenará automáticamente.
+Selecciona Asociar volumen.
+
+El estado del volumen cambia a en uso. El nuevo volumen se ha adjuntado a la instancia de EC2.
+
+
+**Laboratorio completado**
