@@ -1,106 +1,84 @@
-﻿**Laboratorio del módulo 5: Uso de CloudFront como CDN para un** 
+**Introducción a IAM**
 
-**sitio web** 
+Tarea 1. Explorar usuarios y grupos
+En esta tarea, explorarás los usuarios y los grupos que ya se han creado para ti en IAM.
 
-**Tarea 1. Crear un bucket de S3 mediante AWS CLI** 
+En primer lugar, toma nota de la región en la que te encuentras; por ejemplo, N. Virginia. La región se muestra en la esquina superior derecha de la página de la consola.
 
-En esta tarea, crearás un bucket de S3 mediante la Interfaz de la línea de comandos de AWS (AWS CLI). AWS CLI es una herramienta de código abierto que puedes utilizar para interactuar con los servicios de AWS mediante comandos en tu shell de línea de comandos. 
+Es posible que necesites esta información más adelante en el laboratorio.
+Selecciona el menú Servicios, localiza los servicios de Seguridad, identidad y conformidad y selecciona IAM.
+En el panel de navegación de la izquierda, elige Usuarios.
+Ya Se han creado los siguientes usuarios de IAM:
 
-Elige **Servicios** y **Herramientas para desarrolladores** y, después, **CloudShell**. Si aparece una ventana emergente de bienvenida, selecciona **Cerrar**. 
+user-1
+user-2
+user-3
+Selecciona el nombre user-1.
+En el panel de navegación de la izquierda, selecciona Grupos de usuarios.
+Elige el nombre del grupo S3-Support.
+Selecciona la pestaña Permisos.
+El grupo S3-Support tiene la política AmazonS3ReadOnlyAccess asociada.
+En Nombre de la política, elige el enlace de la política AmazonS3ReadOnlyAccess.
+Selecciona la pestaña {} JSON.
+Esta política tiene permisos para obtener y enumerar todos los recursos en Amazon S3.
+En el panel de navegación de la izquierda, selecciona Grupos de usuarios.
 
-AWS CloudShell es un shell basado en navegador que da acceso a la línea de comandos para los recursos de AWS en la región de AWS seleccionada.
+Elige el nombre del grupo EC2-Admin.
+Selecciona la pestaña Permisos.
+Este grupo es diferente de los otros dos. En lugar de una política administrada, el grupo tiene una política insertada, que es una política asignada a un solo usuario o grupo. Las políticas insertadas, generalmente, se usan para asignar permisos en situaciones específicas.
 
-Copia y pega el siguiente código en un editor de texto:
+En Nombre de la política, elige el nombre de la política EC2-Admin-Policy.
+Selecciona la pestaña JSON.
+Esta política concede permiso para Describir información acerca de instancias de Amazon EC2 y también la capacidad de Iniciar y Detener instancias.
+En la parte inferior de la pantalla, selecciona Cancelar para cerrar la política
 
-**cd ~** 
+Tarea 2. Añadir usuarios a grupos
+Recientemente, has contratado al user-1 para un rol en el que presta soporte a Amazon S3. Añadirás a este usuario al grupo S3-Support para que herede los permisos necesarios mediante la política AmazonS3ReadOnlyAccess asociada.
+Haz caso omiso de los errores de tipo "no autorizado" que aparezcan durante esta tarea. Se deben a que la cuenta del laboratorio tiene permisos limitados, pero no afectarán a tu capacidad para completar el laboratorio.
+Añadir a user-1 al grupo S3-Support
+En el panel de navegación izquierdo, selecciona Grupos de usuarios.
 
-**aws s3api create-bucket --bucket (bucket-name) --region us-east-1** 
+Elige el nombre del grupo S3-Support.
+En la pestaña Usuarios, elige Añadir usuarios.
+Selecciona  user-1 y después Añadir usuarios.
+En la pestaña Usuarios, observa que user-1 se ha añadido al grupo.
 
-Selecciona la pestaña **Permisos**. En **Bloquear acceso público (configuración del bucket)**, selecciona **Editar**. Desactiva la casilla de **Bloquear todo el acceso público**. Elige **Guardar cambios**. Confirma los cambios. 
+Añadir a user-2 al grupo EC2-Support
+Has contratado a user-2 para un rol en el que presta soporte a Amazon EC2. Lo añadirás al grupo EC2-Support para que pueda heredar los permisos necesarios mediante la política AmazonEC2ReadOnlyAccess adjunta
+Obtener la URL de inicio de sesión de la consola
+En el panel de navegación de la izquierda, selecciona Panel.
+Observa la sección URL de inicio de sesión para los usuarios de IAM de esta cuenta en la parte superior de la página. La URL de inicio de sesión tiene un aspecto similar al siguiente: https://123456789012.signin.aws.amazon.com/console
+Este enlace se puede utilizar para iniciar sesión en la cuenta de AWS que utilizas actualmente.
+Copia el enlace de inicio de sesión en un editor de texto.
+Probar permisos de user-1
+Abre una ventana privada o de incógnito en el navegador.
+Pega el enlace de inicio de sesión en el navegador privado y pulsa INTRO.
+Ahora iniciarás sesión como user-1, que ha sido contratado como personal de apoyo de almacenamiento de Amazon S3.
+Inicia sesión con las siguientes credenciales:
+Nombre de usuario de IAM: user-1
+Contraseña: Lab-Password1
+Selecciona el menú Servicios y luego S3.
+Elige el nombre de uno de los buckets y explora el contenido
 
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guarda** 
+Probar permisos de user-2
+Vuelve a pegar el enlace de inicio de sesión en el navegador privado y pulsa INTRO.
+Inicia sesión con las siguientes credenciales:
+Nombre de usuario de IAM: user-2
+Contraseña: Lab-Password2
+Selecciona el menú Servicios y después EC2.
+En el panel de navegación de la izquierda, selecciona Instancias.
+Ahora puedes ver una instancia de EC2. Sin embargo, no puedes realizar ningún cambio en los recursos de Amazon EC2 porque tienes permisos de solo lectura.
+Si no ves una instancia de EC2, es posible que la región sea incorrecta. En la esquina superior derecha de la página, elige el nombre de la región y, a continuación, elige la región en la que te encontrabas al principio del laboratorio (por ejemplo, N. Virginia).
+Selecciona la instancia de EC2.
+Selecciona el menú Estado de la instancia y, a continuación, selecciona Detener instancia.
 
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.001.jpeg)
+Probar permisos de user-3
 
-**Tarea 2. Añadir una política de bucket** 
+Vuelve a pegar el enlace de inicio de sesión en el navegador privado y pulsa INTRO.
+Inicia sesión con las siguientes credenciales:
+Nombre de usuario de IAM: user-3
+Contraseña: Lab-Password3
+Selecciona el menú Servicios y después EC2.
+En el panel de navegación de la izquierda, selecciona Instancias
 
-En esta tarea, añadirás una política de bucket a través de AWS CLI para que el contenido esté disponible públicamente.
-
-En la consola, selecciona el menú **Servicios**, localiza la sección **Almacenamiento** y elige **S3**. 
-
-Elige el nombre del bucket que acabas de crear.
-
-Selecciona la pestaña **Permisos**. En **Bloquear acceso público (configuración del bucket)**, selecciona **Editar**. Desactiva la casilla de **Bloquear todo el acceso público**. Elige **Guardar cambios**. Confirma los cambios. 
-
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guardar cambios**. 
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.002.jpeg)
-
-Desplázate hasta **Propiedad del objeto** y selecciona **Editar**. Selecciona **ACL habilitadas**. Comprueba el reconocimiento y, selecciona **Guardar cambios**. 
-
-En la sección **Política del bucket**, selecciona **Editar**. 
-
-Para conceder acceso de lectura pública a tu sitio web, copia y pega la siguiente política del bucket en el editor de políticas.
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.003.jpeg)
-
-**Tarea 3. Subir un documento HTML** 
-
-En esta tarea, subirás el archivo index.html de tu página web en el bucket de S3.
-
-Abre el menú contextual (haz clic con el botón derecho) del siguiente enlace y, a continuación, elige **Save link as** (Guardar enlace como): ind[ex.html ](https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-ACCAIC-1-91563/03-lab-5-cloudfront/s3/index.html)
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.004.jpeg)
-
-**Tarea 4. Probar el sitio web** 
-
-Selecciona la pestaña **Propiedades** y desplázate a la sección **Alojamiento de sitios web estáticos**. 
-
-Selecciona **Editar**. 
-
-Selecciona **Habilitar**. 
-
-En el cuadro de texto **Documento de índice**, introduce "index.html" 
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.005.png)
-
-**Tarea 5. Crear una distribución de CloudFront para servir al sitio web** 
-
-En esta tarea, crearás una distribución de Amazon CloudFront para servir al sitio web.
-
-Selecciona el menú **Servicios**, localiza la sección **Redes y entrega de contenido** y selecciona **CloudFront**. 
-
-Selecciona **Crear una distribución de CloudFront** 
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.006.jpeg)
-
-Para **Viewer Protocol Policy** (Política de protocolo de visor), asegúrate de que **HTTP y HTTPS** estén seleccionados. En **Web Application Firewall (WAF)**, selecciona **Do not enable security protections** (No habilitar protecciones de seguridad).
-
-Desplázate hasta la parte inferior de la página y selecciona **Crear distribución**. 
-
-Se muestra una nueva distribución de CloudFront en la lista de distribuciones. 
-
-El **Estado** será *Implementando* hasta que el sitio web se haya distribuido. Puede tardar hasta 20 minutos. 
-
-Cuando el **Estado** sea *Habilitado*, puedes probar la distribución.
-
-Copia el valor de **Nombre de dominio** de la distribución y guárdalo en un editor de texto para utilizarlo en un paso posterior
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.007.jpeg)
-
-- Reemplaza **domain-name** por el nombre de dominio que copiaste antes para la distribución de CloudFront. 
-- Reemplaza **object-name** por el nombre del archivo de imagen que cargaste en el bucket de S3. 
-
-  La línea de código editada debe tener un aspecto similar al siguiente: <p><img  
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.008.png)
-
-Guarda el archivo de texto con extensión HTML. 
-
-Utiliza un navegador de Internet para abrir el archivo HTML que acabas de crear.
-
-Si se muestra la imagen que cargaste, la distribución de CloudFront se realizó correctamente. Si no es así, repite el laboratorio.
-
-![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.009.jpeg)
-
-**Laboratorio completado![](Aspose.Words.a6ce0c63-8f8d-442b-8b3f-8ad4382bfa0d.010.png)**
+**Laboratorio completado**
